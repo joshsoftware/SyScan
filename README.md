@@ -1,4 +1,4 @@
-The model - SyScan - which is based on Neural Networks (Machine Learning) will be used to identify and correct syntax errors in Python Language.
+The model - SyScan - which is based on Neural Networks (Machine Learning) will be used to identify and correct syntax errors in Python Code.
 SyScan will be a part of SparKode and will be used in placement drives for evaluating the source codes written by the candidates.
 It aims at reducing the manual effort required for correcting the syntactical part of the code.
 
