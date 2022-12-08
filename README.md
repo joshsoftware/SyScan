@@ -14,11 +14,11 @@ BRIEF DESCRIPTION:
 
 There are 3 major parts of the model proposed - the CHECKER, CORRECTOR and CODE_CORRUPTER.
 
-The CHECKER is either a code analyzer or an interpreter. In our case the interpreter is considered as the critic and it is used to check whether the code contains any errors or not and classify the code as good (1) or bad (0). 
-This is required to check whether the right type of code is being provided to the fixer and breaker for further processing.
+The CHECKER is either a code analyzer or an interpreter. In our case the interpreter is considered as the checker and it is used to check whether the code contains any errors or not and classify the code as good (1) or bad (0). 
+This is required to check whether the right type of code is being provided to the corrector and code_corruptoer for further processing.
 
 The CORRECTOR is trained using the good and bad pair of Python codes initially and is used to produce the syntactically correct code as an output when a certain erroneous code is given as an input.
 
 The CODE_CORRUPTER is used for the generation of erroneous code similar to that of the real world errors in the Python code contrary to the synthetically generated bad code. 
-The output of the fixer is provided as input to the breaker. 
+The output of the corrector is provided as input to the code_corrupter. 
 This is the main task which aims at enhancing the accuracy of the model to the highest extent possible.
