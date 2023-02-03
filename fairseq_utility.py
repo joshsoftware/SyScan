@@ -66,7 +66,7 @@ def fairseq_train(GPUs, preprocess_dir, save_dir, logfile, src, tgt, model='tran
                    --reset-meters "
         cmd += additional_cmds
         if logfile is not None:
-            import socket, os
+            import socket
             with open(logfile, 'w') as outf:
                 print (socket.gethostname(), file=outf)
                 print ("pid:", os.getpid(), file=outf)
