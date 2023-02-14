@@ -76,3 +76,28 @@ def fairseq_train(GPUs, preprocess_dir, save_dir, logfile, src, tgt, model='tran
         if GPUs is not None:
             cmd = 'CUDA_VISIBLE_DEVICES={}  {}'.format(GPUs, cmd)
         subprocess.run(cmd, shell=True)
+        
+def fairseq_generate(GPUs, preprocess_dir, checkpoint_path, results_path, src, tgt, gen_subset='test', beam=10, nbest=1, max_len_a=1, max_len_b=50, remove_bpe=None, user_dir=None, use_Popen=True, **kwargs):
+    additional_cmds = ''.join([f"--{k.replace('_', '-')} {v} " for k, v in kwargs.items() if not isinstance(v, bool)])
+    additional_cmds += ''.join([f"--{k.replace('_', '-')} " for k, v in kwargs.items() if isinstance(v, bool) and v])
+    cmd = f"fairseq-generate \
+            {preprocess_dir} \
+        --source-lang {src} --target-lang {tgt} \
+        --gen-subset {gen_subset} \
+        --path {checkpoint_path} \
+        --max-len-a {max_len_a} \
+        --max-len-b {max_len_b} \
+        --nbest {nbest} \
+        --beam {beam} "
+    if remove_bpe is not None:
+        cmd += f'--remove-bpe {remove_bpe} '
+    if user_dir is not None:
+        cmd += f'--user-dir {user_dir} '
+    cmd += additional_cmds
+    if GPUs is not None:
+        cmd = 'CUDA_VISIBLE_DEVICES={}  {}'.format(GPUs, cmd)
+    with open(results_path, 'w') as f:
+        if use_Popen:
+            return subprocess.Popen(cmd, shell=True, stdout=f)
+        else:
+            return subprocess.run(cmd, shell=True, stdout=f)
